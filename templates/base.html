@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <title>{% block title %}Inicio Hearthstone{% endblock %}</title>
+  <meta charset="UTF-8">
+  <!--Añadido la compatibilidad movil-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="descripcion" content="Pagina de cartas de Hearthstone" />
+  <link rel="icon" type="image/png" href="static/imagenes/logo-hs.jpg" sizes="72x72" />
+  <!--Añadido el estilo a la pagina-->
+  <link rel="stylesheet" href="static/css/estilo_pagina.css" />
+</head>
+
+<body class="is-preload">
+  <div id="wrapper">
+
+    {% block content %}{% endblock %}
+
+    <footer id="footer">
+      <div class="inner">
+        <section>
+          <h2>¡Contacta con nosotros para sugerir nuevos juegos para MSX!</h2>
+          <form method="POST" action="http://www2.gonzalonazareno.org/josedom/resultado.php">
+            <div class="fields">
+              <div class="field half">
+                <input type="text" name="Nombre" id="Nombre_form" placeholder="Nombre" required />
+              </div>
+              <div class="field half">
+                <input type="text" name="Apellidos" id="Apellidos_form" placeholder="Apellidos" required />
+              </div>
+              <div class="field">
+                <input type="email" name="email" id="email" placeholder="Email" required />
+              </div>
+              <div class="field">
+                <textarea name="message" id="Mensaje_sugerir" placeholder="¿Qué nos sugieres?"></textarea>
+              </div>
+            </div>
+            <div class="field half">
+              <input type="submit" value="Enviar información" />
+            </div>
+          </form>
+        </section>
+      </div>
+    </footer>
+
+  </div>
+</body>
+
+
+
+
+  <script src="static/scripts/jquery.min.js"></script>
+  <script src="static/scripts/browser.min.js"></script>
+  <script src="static/scripts/breakpoints.min.js"></script>
+  <script src="static/scripts/util.js"></script>
+  <script src="static/scripts/main.js"></script>
+
+
+</html>
