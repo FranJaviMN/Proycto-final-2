@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Cartas{% endblock %}
+{% block content %}
+<div id="main">
+    <div class="inner">
+        <header>
+            <h1>Sobre Hearthstone</h1>
+            <p>
+                Esto es una prueba.
+            </p>
+        </header>
+
+        {% for cartas in doc_cartas.cards %}
+        
+        <img src="{{doc_cartas.image}}" alt="Image de {{doc_cartas.name}}" />
+
+        {% endfor -%}
+
+        <a href="/todas_cartas/{{doc_cartas.page+1}}">Pagina</a>
+
+
+    </div>
+</div>
+{% endblock %}
