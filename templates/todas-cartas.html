@@ -6,18 +6,41 @@
         <header>
             <h1>Sobre Hearthstone</h1>
             <p>
-                Esto es una prueba.
+                En la siguiente seccion de nuestra pagina podrá encontrar toda la colección de cartas que se encuentran en el juego, si quiere hacer una busqueda mas simplificada solo debe gacer el click aqui
             </p>
         </header>
 
         {% for cartas in doc_cartas.cards %}
-        
-        <img src="{{doc_cartas.image}}" alt="Image de {{doc_cartas.name}}" />
 
+        {% if cartas.image == "" -%}
+
+        {% else -%}
+        
+        <a href="/detalles/{{cartas.slug}}"><img src="{{cartas.image}}" alt="Image de {{cartas.image}}" /></a>
+
+
+        {% endif -%}
         {% endfor -%}
 
-        <a href="/todas_cartas/{{doc_cartas.page+1}}">Pagina</a>
+        {% if doc_cartas.page == doc_cartas.pageCount -%}
+        
+        <div class="inner" align="center">
+            <p> <a href="/todas_cartas/{{doc_cartas.page-1}}">Ir a pagina anterior</a> --- <a href="/">Ir al inicio</a></p>
+        </div>
 
+        {% elif doc_cartas.page != doc_cartas.pageCount and doc_cartas.page != 1 -%}
+
+        <div class="inner" align="center">
+            <p> <a href="/todas_cartas/{{doc_cartas.page-1}}">Ir a pagina anterior</a> --- <a href="/">Ir al inicio</a> --- <a href="/todas_cartas/{{doc_cartas.page+1}}"> Ir a pagina siguiente</a></p>
+        </div>
+
+        {% else -%}
+
+        <div class="inner" align="center">
+            <p> <a href="/">Ir al inicio</a> --- <a href="/todas_cartas/{{doc_cartas.page+1}}"> Ir a pagina siguiente</a></p>
+        </div>
+
+        {% endif -%}
 
     </div>
 </div>

@@ -25,9 +25,6 @@ def cartas(pagina):
     else:
         return abort(404)
 
-
-
-
 app.run('0.0.0.0', debug=True)
 
 

@@ -8,9 +8,9 @@
   <!--Añadido la compatibilidad movil-->
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta name="descripcion" content="Pagina de cartas de Hearthstone" />
-  <link rel="icon" type="image/png" href="static/imagenes/logo-hs.jpg" sizes="72x72" />
+  <link rel="icon" href="{{url_for('static', filename='imagenes/logo-hs.jpg')}}"" />
   <!--Añadido el estilo a la pagina-->
-  <link rel="stylesheet" href="static/css/estilo_pagina.css" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/estilo_pagina.css')}}">
 </head>
 
 <body class="is-preload">
