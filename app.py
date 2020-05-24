@@ -25,6 +25,17 @@ def cartas(pagina):
     else:
         return abort(404)
 
+@app.route('/detalles/<id_carta>', methods=["GET"])
+def detalles(id_cartas):
+    peticion_detalles=requests.get(URL_BASE_CARTAS+'&'+id_cartas, headers=headers)
+    if peticion_detalles.status_code == 200:
+        doc_detalle=peticion_detalles.json()
+        return render_template('detalles.html', doc_detalle=doc_detalle)
+    else:
+        return abort(404)
+
+
+
 app.run('0.0.0.0', debug=True)
 
 
