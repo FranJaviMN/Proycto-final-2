@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{doc_detalles.name}}{% endblock %}
+{% block content %}
+<div id="main">
+    <div class="inner">
+        <header>
+            <h1>{{doc_detalles.name}}</h1>
+            <p>
+                <img src="{{doc_detalles.image}}" alt="Image de {{doc_detalles.image}}" />
+            </p>
+
+            <h4>Nombre del artista: {{doc_detalles.artistName}}</h4>
+            
+            <h4>Coste de mana: {{doc_detalles.manaCost}}</h4>
+            
+            {% for tipo in doc_parametros.types -%}
+            {% if tipo.id == doc_detalles.cardTypeId -%}
+            <h4>Tipo de carta: {{tipo.name}}</h4>
+            {% endif -%}
+            {% endfor -%}
+
+            {% for rareza in doc_parametros.rarities -%}
+            {% if rareza.id == doc_detalles.rarityId -%}
+            <h4>Rareza de la carta: {{rareza.name}}</h4>
+            {% endif -%}
+            {% endfor -%}
+
+            {% for clase in doc_parametros.classes -%}
+            {% if clase.id == doc_detalles.classId -%}
+            <h4>Clase de la carta: {{clase.name}}</h4>
+            {% endif -%}
+            {% endfor -%}
+            
+            <h4>Descripcion de carta: {{doc_detalles.flavorText}}</h4>
+
+            <p><a href="/todas_cartas/1">Volver a las cartas</a></p>
+
+
+        </header>
+    </div>
+</div>
+
+
+
+{% endblock %} 
