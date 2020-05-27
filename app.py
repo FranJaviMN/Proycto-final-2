@@ -5,7 +5,8 @@ key=os.environ["clave_propia"]
 #payload = {"locale=es_ES":"es_ES"}
 headers={"Authorization":"bearer "+key}
 URL_BASE_CARTAS = "https://us.api.blizzard.com/hearthstone/cards?locale=es_ES"
-#URL_BASE_PARAMETROS = "https://us.api.blizzard.com/hearthstone/metadata/"
+URL_CARTA_DETALLES = "https://us.api.blizzard.com/hearthstone/cards/"
+URL_BASE_PARAMETROS = "https://us.api.blizzard.com/hearthstone/metadata?locale=es_ES"
 app=Flask(__name__)
 
 
@@ -25,12 +26,14 @@ def cartas(pagina):
     else:
         return abort(404)
 
-@app.route('/detalles/<id_carta>', methods=["GET"])
-def detalles(id_cartas):
-    peticion_detalles=requests.get(URL_BASE_CARTAS+'&'+id_cartas, headers=headers)
-    if peticion_detalles.status_code == 200:
+@app.route('/detalles/<idcarta>', methods=["GET"])
+def detalles(idcarta):
+    peticion_detalles=requests.get(URL_CARTA_DETALLES+idcarta+'?locale=es_ES', headers=headers)
+    peticion_parametros=requests.get(URL_BASE_PARAMETROS, headers=headers)
+    if peticion_detalles.status_code == 200 and peticion_detalles.status_code == 200:
         doc_detalle=peticion_detalles.json()
-        return render_template('detalles.html', doc_detalle=doc_detalle)
+        doc_parametros=peticion_parametros.json()
+        return render_template('detalles.html', doc_detalles=doc_detalle, doc_parametros=doc_parametros)
     else:
         return abort(404)
 
