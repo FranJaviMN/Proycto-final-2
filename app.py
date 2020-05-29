@@ -1,4 +1,4 @@
-from flask import Flask, abort, render_template
+from flask import Flask, abort, render_template, request
 import requests
 import os
 key=os.environ["clave_propia"]
@@ -25,6 +25,19 @@ def cartas(pagina):
         return render_template('todas-cartas.html', doc_cartas=doc_cartas, pagina=1)
     else:
         return abort(404)
+
+
+@app.route('/buscador_cartas', methods=["GET","POST"])
+def buscador():
+    if request.method == "GET":
+        lista_heroes=[]
+        peticion_parametros=requests.get(URL_BASE_PARAMETROS, headers=headers)
+        if peticion_parametros.status_code == 200:
+            doc_parametros=peticion_parametros.json()
+            for classes in doc_parametros['classes']:
+                lista_heroes.append(classes)
+            return render_template('buscador.html', lista_heroes=lista_heroes)
+
 
 @app.route('/detalles/<idcarta>', methods=["GET"])
 def detalles(idcarta):
