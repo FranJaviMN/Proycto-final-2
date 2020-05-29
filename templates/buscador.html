@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Buscador{% endblock %}
+{% block content %}
+<div id="main">
+    <div class="inner">
+        <header>
+            <h1>Sobre Hearthstone</h1>
+            
+            <form method="POST" action="/buscador_cartas ">
+                <label>Nombre del personaje</label>
+                <input type="text" name="nombre" placeholder="Nombre personaje" />
+                <input type="submit" value="Buscar" />
+                <select name="clases">
+
+                    {% for class in lista_heroes -%}
+                    <option value="{{class.slug}}">{{class.name}}</option>
+                    {% endfor -%}
+                </select>
+
+
+        </header>
+    </div>
+</div>
+{% endblock %}
