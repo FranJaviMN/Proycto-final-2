@@ -29,14 +29,37 @@ def cartas(pagina):
 
 @app.route('/buscador_cartas', methods=["GET","POST"])
 def buscador():
+    lista_heroes=[]
+    lista_rare=[]
+    lista_tipo=[]
+    peticion_parametros=requests.get(URL_BASE_PARAMETROS, headers=headers)
+    if peticion_parametros.status_code == 200:
+        doc_parametros=peticion_parametros.json()
+        for classes in doc_parametros['classes']:
+            lista_heroes.append(classes)
+        for rares in doc_parametros['rarities']:
+            lista_rare.append(rares)
+        for tipo in doc_parametros['types']:
+            lista_tipo.append(tipo)
+    
     if request.method == "GET":
-        lista_heroes=[]
-        peticion_parametros=requests.get(URL_BASE_PARAMETROS, headers=headers)
-        if peticion_parametros.status_code == 200:
-            doc_parametros=peticion_parametros.json()
-            for classes in doc_parametros['classes']:
-                lista_heroes.append(classes)
-            return render_template('buscador.html', lista_heroes=lista_heroes)
+            return render_template('buscador.html', lista_heroes=lista_heroes, lista_rare=lista_rare, lista_tipo=lista_tipo)
+    else:
+        palabra_buscador=request.form.get("nombre")
+        clase=request.form.get("clases")
+        rareza=request.form.get("rarities")
+        tipo=request.form.get("tipo")
+        if palabra_buscador == "":
+            peticion_cartas=requests.get(URL_BASE_CARTAS+"&class="+clase+"&rarity="+rareza+"&type="+tipo, headers=headers)
+            if peticion_cartas.status_code == 200:
+                doc_cartas=peticion_cartas.json()
+                return render_template("buscador.html", doc_cartas=doc_cartas, lista_heroes=lista_heroes, lista_rare=lista_rare, lista_tipo=lista_tipo)
+        else:
+            peticion_cartas=requests.get(URL_BASE_CARTAS+"&class="+clase+"&rarity="+rareza+"&type="+tipo+"&textFilter="+palabra_buscador, headers=headers)
+            if peticion_cartas.status_code == 200:
+                doc_cartas=peticion_cartas.json()
+                return render_template("buscador.html", doc_cartas=doc_cartas, lista_heroes=lista_heroes, lista_rare=lista_rare, lista_tipo=lista_tipo)
+
 
 
 @app.route('/detalles/<idcarta>', methods=["GET"])

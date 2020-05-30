@@ -10,13 +10,41 @@
                 <label>Nombre del personaje</label>
                 <input type="text" name="nombre" placeholder="Nombre personaje" />
                 <input type="submit" value="Buscar" />
-                <select name="clases">
 
+                <select name="clases">
                     {% for class in lista_heroes -%}
                     <option value="{{class.slug}}">{{class.name}}</option>
                     {% endfor -%}
                 </select>
 
+                <select name= "rarities">
+                    {% for rare in lista_rare -%}
+                    <option value="{{rare.slug}}">{{rare.name}}</option>
+                    {% endfor -%}
+                </select>
+
+                <select name="tipo">
+                    {% for tipos in lista_tipo -%}
+                    <option value="{{tipos.slug}}">{{tipos.name}}</option>
+                    {% endfor -%}
+                </select>
+            </form>
+
+            {% if doc_cartas -%}
+            <h1>Cartas encontradas</h1>
+            {% for cartas in doc_cartas.cards %}
+
+        {% if cartas.image == "" -%}
+
+        {% else -%}
+        
+        <a href="/detalles/{{cartas.slug}}"><img src="{{cartas.image}}" alt="Image de {{cartas.image}}" /></a>
+
+
+        {% endif -%}
+        {% endfor -%}
+            {% endif -%}
+            
 
         </header>
     </div>
