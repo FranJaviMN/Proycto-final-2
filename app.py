@@ -17,6 +17,8 @@ def inicio():
     return render_template('inicio.html')
 
 
+#En est ruta vamos a ver todas la cartas disponibles en la api usada.
+
 @app.route('/todas_cartas/<int:pagina>', methods=["GET"])
 def cartas(pagina):
     peticion_todas_cartas=requests.get(URL_BASE_CARTAS+'&pageSize=21&page='+str(pagina), headers=headers)
@@ -26,6 +28,7 @@ def cartas(pagina):
     else:
         return abort(404)
 
+#En esta ruta vamos a poder buscar las cartas mediante la clase, la rareza y el tipo de carta.
 
 @app.route('/buscador_cartas', methods=["GET","POST"])
 def buscador():
@@ -61,6 +64,8 @@ def buscador():
                 return render_template("buscador.html", doc_cartas=doc_cartas, lista_heroes=lista_heroes, lista_rare=lista_rare, lista_tipo=lista_tipo)
 
 
+#Con esta ruta vamos a ver los detalles de la cartas.
+
 
 @app.route('/detalles/<idcarta>', methods=["GET"])
 def detalles(idcarta):
@@ -75,6 +80,14 @@ def detalles(idcarta):
 
 
 
-app.run('0.0.0.0', debug=True)
+#Activar cuando ya no se este en desarrollo.
+
+port=os.environ["PORT"]
+
+app.run('0.0.0.0', int(port), debug=False)
+
+#Activar cuando aun se esta en desarrollo
+
+#app.run('0.0.0.0', debug=True)
 
 
