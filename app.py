@@ -1,5 +1,6 @@
 from flask import Flask, abort, render_template, request
 import requests
+import json
 import os
 key=os.environ["clave_propia"]
 #payload = {"locale=es_ES":"es_ES"}
